@@ -1,9 +1,9 @@
 <?php
 header ("Content-Type: text/html; charset=utf-8");
-
+//
 include_once 'config.php';
-
-$sql = "SELECT * FROM books";
+//
+// $sql = "SELECT * FROM books";
 
 // foreach ($pdo->query($sql) as $row) {
 // echo $row['name'] . "<br />";
@@ -19,20 +19,34 @@ $sql = "SELECT * FROM books";
 
 // die;
 
-// $where = [];
-
-if (isset($_GET['isbn'])) {
-	$sql = "SELECT * FROM books WHERE isbn LIKE '{$_GET['isbn']}'";
-}
-
-if (isset($_GET['name'])) {
-	$sql = "SELECT * FROM books WHERE name LIKE '%{$_GET['name']}%'";
-}
-
-if (isset($_GET['author'])) {
-	$sql = "SELECT * FROM books WHERE author LIKE '%{$_GET['author']}%'";
-}
-
+// phpinfo();
+// $isbn = "";
+// $name = "";
+// $author = "";
+//
+// define('DB_DRIVER','mysql');
+// define('DB_HOST','localhost');
+// define('DB_NAME','hw12');
+// define('DB_USER','root');
+// define('DB_PASS','');
+//
+// try {
+// 	$connect_str = DB_DRIVER . ':host=' . DB_HOST . ';dbname=' . DB_NAME;
+// 	$db = new PDO($connect_str, DB_USER, DB_PASS);
+// 	$post = $_POST;
+//
+// 	if (isset($post['isbn']) || isset($post['name']) || isset($post['author'])) {
+// 		$isbn = $post['isbn'];
+// 		$name = $post['name'];
+// 		$author = $post['author'];
+// 		$sql = ("select * from books where isbn LIKE '%{$post['isbn']}%' and name LIKE '%{$post['name']}%' and author LIKE '%{$post['author']}%'");
+// 	} else {
+// 		$sql = ("select * from books");
+// 		}
+// 	}
+// 	catch (PDOException $e) {
+// 			die("Error!: " . $e->getMessage());
+// 	}
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +78,7 @@ if (isset($_GET['author'])) {
 	<body>
 		<h1>Библиотека успешного человека</h1>
 
-    <form method="GET">
+    <form method="POST">
       <input type="text" name="isbn" placeholder="ISBN" value="">
       <input type="text" name="name" placeholder="Название книги" value="">
       <input type="text" name="author" placeholder="Автор книги" value="">
@@ -83,7 +97,7 @@ if (isset($_GET['author'])) {
       </thead>
 
 			<tbody>
-		    <?php foreach ($pdo->query($sql) as $row) { ?>
+		    <?php foreach ($db->query($sql) as $row) { ?>
         <tr>
           <td><?php echo $row['name']; ?></td>
           <td><?php echo $row['author']; ?></td>
